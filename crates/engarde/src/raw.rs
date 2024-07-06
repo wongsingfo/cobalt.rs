@@ -26,14 +26,18 @@ impl Raw {
 
     pub fn format(&self, code: &str, lang: Option<&str>, _theme: Option<&str>) -> String {
         let code = html_escape(code);
-        if let Some(ref lang) = lang {
-            format!(
-                "<pre><code class=\"language-{}\">{}</code></pre>\n",
-                lang, code
-            )
-        } else {
-            format!("<pre><code>{}</code></pre>\n", code)
-        }
+        let lang_class = lang.map_or("".to_string(), |l| format!(" class=\"language-{}\"", l));
+        // Count how many line in code
+        let line_count = code.matches('\n').count();
+        let line_numbers = (0..line_count)
+            .map(|i| format!("<span>{}</span>", i + 1))
+            .collect::<String>();
+        let line_number = format!(r#"<span class="line-number">{}</span>"#, line_numbers);
+
+        format!(
+            "<pre>{}<code{}>{}</code></pre>\n",
+            line_number, lang_class, code
+        )
     }
 }
 
