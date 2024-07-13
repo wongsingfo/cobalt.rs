@@ -146,6 +146,7 @@ pub struct DecoratedParser<'a> {
     theme: Option<&'a str>,
     lang: Option<String>,
     code: Option<Vec<pulldown_cmark::CowStr<'a>>>,
+    next_event: Option<Event<'a>>,
 }
 
 impl<'a> DecoratedParser<'a> {
@@ -161,6 +162,7 @@ impl<'a> DecoratedParser<'a> {
             theme,
             lang: None,
             code: None,
+            next_event: None,
         })
     }
 }
@@ -169,6 +171,9 @@ impl<'a> Iterator for DecoratedParser<'a> {
     type Item = Event<'a>;
 
     fn next(&mut self) -> Option<Event<'a>> {
+        if self.next_event.is_some() {
+            return self.next_event.take();
+        }
         match self.parser.next() {
             Some(Text(text)) => {
                 if let Some(ref mut code) = self.code {
@@ -200,6 +205,34 @@ impl<'a> Iterator for DecoratedParser<'a> {
                 // close the code block
                 Some(Html(pulldown_cmark::CowStr::Boxed(html.into_boxed_str())))
             }
+            Some(Start(cmark::Tag::Heading {
+                level,
+                id,
+                classes,
+                attrs,
+            })) => {
+                self.next_event = Some(Start(cmark::Tag::Heading {
+                    level,
+                    id,
+                    classes,
+                    attrs,
+                }));
+                Some(Html(pulldown_cmark::CowStr::Borrowed(
+                    "</section><section>",
+                )))
+            }
+            Some(Start(cmark::Tag::Image {
+                dest_url, title, ..
+            })) => {
+                let html = format!(
+                    r#"<figure><img src="{}" title="{}" /><figcaption>"#,
+                    dest_url, title
+                );
+                Some(Html(pulldown_cmark::CowStr::Boxed(html.into_boxed_str())))
+            }
+            Some(End(cmark::TagEnd::Image)) => Some(Html(pulldown_cmark::CowStr::Borrowed(
+                "</figcaption></figure>",
+            ))),
             item => item,
         }
     }
