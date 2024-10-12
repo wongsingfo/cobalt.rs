@@ -6,7 +6,7 @@ use crate::Status;
 
 #[derive(Debug, Eq, PartialEq, Default, Clone)]
 pub struct Document {
-    front: crate::Frontmatter,
+    front: Frontmatter,
     content: liquid_core::model::KString,
 }
 
@@ -33,7 +33,7 @@ impl Document {
 }
 
 impl fmt::Display for Document {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let front = self.front.to_string();
         if front.is_empty() {
             write!(f, "{}", self.content)
@@ -187,7 +187,7 @@ mod test {
     fn split_document_no_new_line_after_front_matter() {
         let input = "invalid_front_matter---\nbody";
         let (cobalt_model, content) = split_document(input);
-        println!("{:?}", cobalt_model);
+        println!("{cobalt_model:?}");
         assert!(cobalt_model.is_none());
         assert_eq!(content, input);
     }
@@ -196,7 +196,7 @@ mod test {
     fn split_document_multiline_body() {
         let input = "---\ncobalt_model\n---\nfirst\nsecond";
         let (cobalt_model, content) = split_document(input);
-        println!("{:?}", cobalt_model);
+        println!("{cobalt_model:?}");
         assert_eq!(cobalt_model.unwrap(), "cobalt_model\n");
         assert_eq!(content, "first\nsecond");
     }

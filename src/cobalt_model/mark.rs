@@ -1,7 +1,7 @@
 use pulldown_cmark as cmark;
 use serde::Serialize;
 
-use crate::error::*;
+use crate::error::Result;
 use crate::syntax_highlight::decorate_markdown;
 
 #[derive(Debug, Clone, Serialize)]
@@ -27,10 +27,9 @@ pub struct Markdown {
     syntax: std::sync::Arc<crate::SyntaxHighlight>,
 }
 
-use crate::error;
 use cmark::Event;
 
-pub struct DecoratedParser<'a> {
+pub(crate) struct DecoratedParser<'a> {
     events: std::vec::IntoIter<Event<'a>>,
     definitions: Vec<Vec<Event<'a>>>,
     current_definition: Option<std::vec::IntoIter<Event<'a>>>,
@@ -44,7 +43,7 @@ impl<'a> DecoratedParser<'a> {
     {
         let mut events = parser.collect::<Vec<_>>();
 
-        let mut definitions: Vec<Vec<Event>> = vec![];
+        let mut definitions: Vec<Vec<Event<'_>>> = vec![];
         let mut i: usize = 0;
         while i < events.len() {
             if let Event::Start(cmark::Tag::FootnoteDefinition(tag)) = &events[i] {
@@ -127,7 +126,7 @@ impl<'a> Iterator for DecoratedParser<'a> {
     }
 }
 
-fn decorate_footnote<'a, T>(parser: T) -> error::Result<DecoratedParser<'a>>
+fn decorate_footnote<'a, T>(parser: T) -> Result<DecoratedParser<'a>>
 where
     T: 'a + Iterator<Item = Event<'a>>,
 {

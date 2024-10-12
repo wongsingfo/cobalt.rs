@@ -9,33 +9,33 @@ use notify::Watcher as _;
 
 use crate::args;
 use crate::build;
-use crate::error::*;
+use crate::error::Result;
 
 /// Build, serve, and watch the project at the source dir
 #[derive(Clone, Debug, PartialEq, Eq, clap::Args)]
-pub struct ServeArgs {
+pub(crate) struct ServeArgs {
     /// Open a browser
     #[arg(long)]
-    pub open: bool,
+    pub(crate) open: bool,
 
     /// Host to serve from
     #[arg(long, value_name = "HOSTNAME_OR_IP", default_value = "localhost")]
-    pub host: String,
+    pub(crate) host: String,
 
     /// Port to serve from
     #[arg(short = 'P', long, value_name = "NUM")]
-    pub port: Option<u16>,
+    pub(crate) port: Option<u16>,
 
     /// Disable rebuilding on change
     #[arg(long)]
-    pub no_watch: bool,
+    pub(crate) no_watch: bool,
 
     #[command(flatten, next_help_heading = "Config")]
-    pub config: args::ConfigArgs,
+    pub(crate) config: args::ConfigArgs,
 }
 
 impl ServeArgs {
-    pub fn run(&self) -> Result<()> {
+    pub(crate) fn run(&self) -> Result<()> {
         let dest = tempfile::tempdir()?;
 
         let mut server = file_serve::ServerBuilder::new(dest.path());
@@ -47,14 +47,14 @@ impl ServeArgs {
 
         let mut config = self.config.load_config()?;
         debug!("Overriding config `site.base_url` with `/`");
-        config.site.base_url = Some("/".into());
-        let mut config = cobalt::cobalt_model::Config::from_config(config)?;
+        let host = format!("http://{}/", server.addr());
+        config.site.base_url = Some(host.into());
+        let mut config = cobalt_model::Config::from_config(config)?;
         debug!(
             "Overriding config `destination` with `{}`",
             dest.path().display()
         );
         config.destination = dest.path().to_owned();
-
         build::build(config.clone())?;
 
         if self.open {
@@ -97,7 +97,7 @@ fn serve(server: &file_serve::Server) -> Result<()> {
 fn open_browser(url: String) -> Result<()> {
     match open::that(url) {
         Ok(()) => info!("Please check your browser!"),
-        Err(why) => eprintln!("Failure to execute command: {}", why),
+        Err(why) => eprintln!("Failure to execute command: {why}"),
     }
     Ok(())
 }

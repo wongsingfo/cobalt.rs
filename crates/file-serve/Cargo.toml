@@ -1,6 +1,6 @@
 [package]
 name = "file-serve"
-version = "0.3.2"
+version = "0.3.5"
 description = "HTTP Static File Server"
 homepage = "https://github.com/cobalt-org/cobalt.rs/tree/master/crates/file-serve"
 documentation = "http://docs.rs/file-serve"
@@ -28,5 +28,11 @@ pre-release-replacements = [
 
 [dependencies]
 tiny_http = "0.12.0"
-mime_guess = "2"
+mime_guess = "2.0.5"
 log = "0.4"
+
+[target.'cfg(any())'.dependencies]
+mime = "0.3.17"  # HACK: bad minimal dep in mime_guess
+
+[lints]
+workspace = true

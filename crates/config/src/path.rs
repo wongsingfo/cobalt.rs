@@ -100,12 +100,12 @@ impl<'s> PartialEq<&'s str> for RelPath {
 }
 
 impl std::fmt::Display for RelPath {
-    fn fmt(&self, fmt: &mut std::fmt::Formatter) -> std::fmt::Result {
+    fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         self.0.fmt(fmt)
     }
 }
 
-impl<'s> std::convert::TryFrom<&'s str> for RelPath {
+impl<'s> TryFrom<&'s str> for RelPath {
     type Error = &'static str;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
@@ -118,7 +118,7 @@ impl<'s> std::convert::TryFrom<&'s str> for RelPath {
     }
 }
 
-impl std::convert::TryFrom<String> for RelPath {
+impl TryFrom<String> for RelPath {
     type Error = &'static str;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
@@ -324,7 +324,7 @@ mod test_rel_path {
     #[test]
     fn test_try_from_abspath_fails() {
         let case = RelPath::try_from("/foo/bar");
-        println!("{:?}", case);
+        println!("{case:?}");
         assert!(case.is_err());
     }
 }
