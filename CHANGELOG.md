@@ -1,11 +1,62 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](https://semver.org/).
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+
+## [0.20.2] - 2025-10-01
+
+### Features
+
+- Add `css` theme
+- Add `cobalt debug highlight save-theme-css` for generating CSS for the `css` theme
+
+## [0.20.1] - 2025-09-25
+
+### Features
+
+- Include tags and categories in CSS
+
+## [0.20.0] - 2025-04-10
+
+### Changes
+
+- Switched from libsass to grass
+
+## [0.19.12] - 2025-04-10
+
+## [0.19.11] - 2025-04-10
+
+## [0.19.10] - 2025-04-10
+
+### Features
+
+- Attempt aarch64 builds for mac
+
+## [0.19.9] - 2025-03-31
+
+### Fixes
+
+- *(pagination)* Don't panic when `all` paginator has no content
+
+## [0.19.8] - 2025-03-04
+
+### Fixes
+
+- Always include `page.tags`
+
+## [0.19.7] - 2025-02-27
+
+### Compatibility
+
+- MSRV is now 1.85
+
+### Fixes
+
+- *(pagination)* Put posts under the correct category
 
 ## [0.19.6] - 2024-08-07
 
@@ -651,7 +702,7 @@ this.
   *  Improve error reporting ([0d379935](https://github.com/cobalt-org/cobalt.rs/commit/0d37993546f1f00733996fbb02719559a201bc5f))
   *  Make it easier to add new tests ([03fdecda](https://github.com/cobalt-org/cobalt.rs/commit/03fdecda29d0659b06eeb24e2817b1376dbe6581))
 * **tests/cli/log_levels:**  Improve comparison error reporting ([334c4d2e](https://github.com/cobalt-org/cobalt.rs/commit/334c4d2e3a2153a2b93bd4a8453c49513283e69a))
-* Stabalize the CI ([5d739b5](https://github.com/cobalt-org/cobalt.rs/commit/5d739b50ddfdf90fb848921681d46d4a4b7e20f6))
+* Stabilize the CI ([5d739b5](https://github.com/cobalt-org/cobalt.rs/commit/5d739b50ddfdf90fb848921681d46d4a4b7e20f6))
 * Upgrade to [liquid-rust 0.10.0](https://github.com/cobalt-org/liquid-rust/releases/tag/v0.10.0) ([2421679](https://github.com/cobalt-org/cobalt.rs/commit/24216795b6c83acff98de1a1fad22f54a00150bb))
 * `cobalt serve` should ignore query strings ([eb9e0b0](https://github.com/cobalt-org/cobalt.rs/commit/eb9e0b05596313ee1213b20ed642777ee0a34139))
 * Gracefully handle empty frontmatters ([5aa5813](https://github.com/cobalt-org/cobalt.rs/commit/5aa5813479c00683e321def73a8b2e6cbc14fa9e))
@@ -721,7 +772,16 @@ this.
 [@tak1n]: https://github.com/tak1n
 
 <!-- next-url -->
-[Unreleased]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.6...HEAD
+[Unreleased]: https://github.com/cobalt-org/cobalt.rs/compare/v0.20.2...HEAD
+[0.20.2]: https://github.com/cobalt-org/cobalt.rs/compare/v0.20.1...v0.20.2
+[0.20.1]: https://github.com/cobalt-org/cobalt.rs/compare/v0.20.0...v0.20.1
+[0.20.0]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.12...v0.20.0
+[0.19.12]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.11...v0.19.12
+[0.19.11]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.10...v0.19.11
+[0.19.10]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.9...v0.19.10
+[0.19.9]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.8...v0.19.9
+[0.19.8]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.7...v0.19.8
+[0.19.7]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.6...v0.19.7
 [0.19.6]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.5...v0.19.6
 [0.19.5]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.4...v0.19.5
 [0.19.4]: https://github.com/cobalt-org/cobalt.rs/compare/v0.19.3...v0.19.4

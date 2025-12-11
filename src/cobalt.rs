@@ -11,9 +11,9 @@ use log::warn;
 use sitemap::writer::SiteMapWriter;
 
 use crate::cobalt_model;
+use crate::cobalt_model::Collection;
 use crate::cobalt_model::files;
 use crate::cobalt_model::permalink;
-use crate::cobalt_model::Collection;
 use crate::cobalt_model::{Config, Minify, SortOrder};
 use crate::document::{Document, RenderContext};
 use crate::error::Result;
@@ -454,7 +454,7 @@ fn create_rss(
         .build();
 
     let rss_string = channel.to_string();
-    trace!("RSS data: {}", rss_string);
+    trace!("RSS data: {rss_string}");
 
     // create target directories if any exist
     if let Some(parent) = path.parent() {

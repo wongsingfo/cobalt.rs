@@ -1,11 +1,28 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](https://semver.org/).
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+
+## [0.1.15] - 2025-10-01
+
+### Features
+
+- Built-in `css` theme
+- Function for dumping CSS to configure the `css` theme
+
+## [0.1.14] - 2025-04-10
+
+## [0.1.13] - 2025-03-31
+
+## [0.1.12] - 2025-02-27
+
+### Compatibility
+
+- MSRV is now 1.85
 
 ## [0.1.11] - 2024-08-07
 
@@ -50,7 +67,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.1] - 2022-04-04
 
 <!-- next-url -->
-[Unreleased]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.11...HEAD
+[Unreleased]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.15...HEAD
+[0.1.15]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.14...engarde-v0.1.15
+[0.1.14]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.13...engarde-v0.1.14
+[0.1.13]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.12...engarde-v0.1.13
+[0.1.12]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.11...engarde-v0.1.12
 [0.1.11]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.10...engarde-v0.1.11
 [0.1.10]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.9...engarde-v0.1.10
 [0.1.9]: https://github.com/cobalt-org/cobalt.rs/compare/engarde-v0.1.8...engarde-v0.1.9

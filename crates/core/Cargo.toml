@@ -1,34 +1,33 @@
 [package]
 name = "cobalt-core"
-version = "0.19.4"
+version = "0.19.9"
 description = "Static site generator written in Rust"
 readme = "../../README.md"
-keywords = ["static", "site", "generator"]
 categories = ["command-line-utilities"]
-license.workspace = true
+keywords = ["static", "site", "generator"]
 repository.workspace = true
+license.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 include.workspace = true
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--cfg", "docsrs"]
+rustdoc-args = ["--generate-link-to-definition"]
 
 [features]
 unstable = []
 preview_unstable = []
 
 [dependencies]
-cobalt-config = { version = "=0.19.4", path = "..//config", features = ["unstable"] }
-ignore = "0.4"
-walkdir = "2.5"
-liquid-core = "0.26"
-log = "0.4"
-serde = "1.0"
-once_cell = "1.19"
+cobalt-config = { version = "=0.19.9", path = "..//config", features = ["unstable"] }
+ignore = "0.4.23"
+walkdir = "2.5.0"
+liquid-core = "0.26.9"
+log = "0.4.27"
+serde = "1.0.219"
 status = { version = "0.0.10", features = ["send_sync"] }
-relative-path = { version = "1", features = ["serde"] }
+relative-path = { version = "2.0.0", features = ["serde"] }
 
 [lints]
 workspace = true

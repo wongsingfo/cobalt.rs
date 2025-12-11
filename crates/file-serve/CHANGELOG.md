@@ -1,11 +1,25 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](https://semver.org/).
 
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
+
+## [0.3.10] - 2025-10-01
+
+## [0.3.9] - 2025-09-25
+
+## [0.3.8] - 2025-04-10
+
+## [0.3.7] - 2025-03-31
+
+## [0.3.6] - 2025-02-27
+
+### Compatibility
+
+- MSRV is now 1.85
 
 ## [0.3.5] - 2024-08-07
 
@@ -60,7 +74,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.1] - 2022-04-04
 
 <!-- next-url -->
-[Unreleased]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.5...HEAD
+[Unreleased]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.10...HEAD
+[0.3.10]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.9...file-serve-v0.3.10
+[0.3.9]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.8...file-serve-v0.3.9
+[0.3.8]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.7...file-serve-v0.3.8
+[0.3.7]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.6...file-serve-v0.3.7
+[0.3.6]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.5...file-serve-v0.3.6
 [0.3.5]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.4...file-serve-v0.3.5
 [0.3.4]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.3...file-serve-v0.3.4
 [0.3.3]: https://github.com/cobalt-org/cobalt.rs/compare/file-serve-v0.3.2...file-serve-v0.3.3

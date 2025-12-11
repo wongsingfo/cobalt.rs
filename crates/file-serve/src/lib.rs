@@ -16,7 +16,7 @@
 //! server.serve().unwrap();
 //! ```
 
-#![cfg_attr(docsrs, feature(doc_auto_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 #![warn(clippy::print_stderr)]
 #![warn(clippy::print_stdout)]
 
@@ -119,7 +119,7 @@ impl Server {
                 *server = Some(tiny_http::Server::http(self.addr()).map_err(Error::new)?);
             }
             Ok(Some(_)) | Err(TryLockError::WouldBlock) => {
-                return Err(Error::new("the server is running"))
+                return Err(Error::new("the server is running"));
             }
             Err(error @ TryLockError::Poisoned(_)) => return Err(Error::new(error)),
         }
@@ -130,7 +130,7 @@ impl Server {
             for request in server.as_ref().unwrap().incoming_requests() {
                 // handles the request
                 if let Err(e) = static_file_handler(self.source(), request) {
-                    log::error!("{}", e);
+                    log::error!("{e}");
                 }
             }
         }

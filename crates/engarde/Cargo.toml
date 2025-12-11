@@ -1,21 +1,19 @@
 [package]
 name = "engarde"
-version = "0.1.11"
+version = "0.1.15"
 description = "Fenced Code Formatting"
-homepage = "https://github.com/cobalt-org/cobalt.rs/tree/master/crates/engarde"
-documentation = "http://docs.rs/engarde"
 readme = "README.md"
-keywords = ["syntax", "highlighting", "highlighter", "colouring", "parsing"]
 categories = ["parser-implementations", "parsing", "text-processing"]
-license.workspace = true
+keywords = ["syntax", "highlighting", "highlighter", "colouring", "parsing"]
 repository.workspace = true
+license.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 include.workspace = true
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--cfg", "docsrs"]
+rustdoc-args = ["--generate-link-to-definition"]
 
 [package.metadata.release]
 pre-release-replacements = [
@@ -37,7 +35,8 @@ default-features = false
 features =  ["parsing", "regex-fancy", "default-syntaxes", "default-themes", "html", "dump-load", "yaml-load"]
 
 [target.'cfg(any())'.dependencies]
-thiserror = "1.0.2"  # HACK: bad minimal dep in syntect
+thiserror = "1.0.69"  # HACK: bad minimal dep in syntect
+flate2 = "1.0.35"  # HACK: bad minimal dep in syntect
 
 [lints]
 workspace = true

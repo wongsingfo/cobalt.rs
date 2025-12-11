@@ -9,13 +9,13 @@
   customManagers: [
     {
       customType: 'regex',
-      fileMatch: [
-        '^rust-toolchain\\.toml$',
-        'Cargo.toml$',
-        'clippy.toml$',
-        '\\.clippy.toml$',
-        '^\\.github/workflows/ci.yml$',
-        '^\\.github/workflows/rust-next.yml$',
+      managerFilePatterns: [
+        '/^rust-toolchain\\.toml$/',
+        '/Cargo.toml$/',
+        '/clippy.toml$/',
+        '/\\.clippy.toml$/',
+        '/^\\.github/workflows/ci.yml$/',
+        '/^\\.github/workflows/rust-next.yml$/',
       ],
       matchStrings: [
         'STABLE.*?(?<currentValue>\\d+\\.\\d+(\\.\\d+)?)',
@@ -32,7 +32,7 @@
       matchManagers: [
         'custom.regex',
       ],
-      matchPackageNames: [
+      matchDepNames: [
         'STABLE',
       ],
       extractVersion: '^(?<version>\\d+\\.\\d+)',  // Drop the patch version

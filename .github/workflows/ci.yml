@@ -38,9 +38,12 @@ jobs:
         rust: ["stable"]
     continue-on-error: ${{ matrix.rust != 'stable' }}
     runs-on: ${{ matrix.os }}
+    env:
+      # Reduce amount of data cached
+      CARGO_PROFILE_DEV_DEBUG: line-tables-only
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       with:
@@ -58,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       with:
@@ -66,13 +69,13 @@ jobs:
     - uses: Swatinem/rust-cache@v2
     - uses: taiki-e/install-action@cargo-hack
     - name: Default features
-      run: cargo hack check --feature-powerset --locked --rust-version --ignore-private --workspace --all-targets
+      run: cargo hack check --each-feature --locked --rust-version --ignore-private --workspace --all-targets --keep-going
   minimal-versions:
     name: Minimal versions
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install stable Rust
       uses: dtolnay/rust-toolchain@stable
       with:
@@ -84,12 +87,12 @@ jobs:
     - name: Downgrade dependencies to minimal versions
       run: cargo +nightly generate-lockfile -Z minimal-versions
     - name: Compile with minimal versions
-      run: cargo +stable check --workspace --all-features --locked --exclude cobalt-bin --exclude cobalt-core --exclude cobalt-config
+      run: cargo +stable check --workspace --all-features --locked --exclude cobalt-bin --exclude cobalt-core --exclude cobalt-config --keep-going
   lockfile:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       with:
@@ -102,26 +105,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       with:
-        toolchain: "1.81.0"  # STABLE
+        toolchain: "1.91"  # STABLE
     - uses: Swatinem/rust-cache@v2
     - name: Check documentation
       env:
         RUSTDOCFLAGS: -D warnings
-      run: cargo doc --workspace --all-features --no-deps --document-private-items
+      run: cargo doc --workspace --all-features --no-deps --document-private-items --keep-going
   rustfmt:
     name: rustfmt
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       with:
-        toolchain: "1.81.0"  # STABLE
+        toolchain: "1.91"  # STABLE
         components: rustfmt
     - uses: Swatinem/rust-cache@v2
     - name: Check formatting
@@ -133,11 +136,11 @@ jobs:
       security-events: write # to upload sarif results
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       with:
-        toolchain: "1.81.0"  # STABLE
+        toolchain: "1.91"  # STABLE
         components: clippy
     - uses: Swatinem/rust-cache@v2
     - name: Install SARIF tools
@@ -146,24 +149,24 @@ jobs:
       run: cargo install sarif-fmt --locked
     - name: Check
       run: >
-        cargo clippy --workspace --all-features --all-targets --message-format=json -- -D warnings --allow deprecated
+        cargo clippy --workspace --all-features --all-targets --message-format=json
         | clippy-sarif
         | tee clippy-results.sarif
         | sarif-fmt
       continue-on-error: true
     - name: Upload
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: clippy-results.sarif
         wait-for-processing: true
     - name: Report status
-      run: cargo clippy --workspace --all-features --all-targets -- -D warnings --allow deprecated
+      run: cargo clippy --workspace --all-features --all-targets --keep-going -- -D warnings --allow deprecated
   coverage:
     name: Coverage
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       with:
@@ -172,7 +175,7 @@ jobs:
     - name: Install cargo-tarpaulin
       run: cargo install cargo-tarpaulin
     - name: Gather coverage
-      run: cargo tarpaulin --output-dir coverage --out lcov
+      run: cargo tarpaulin --output-dir coverage --out lcov --timeout 300
     - name: Publish to Coveralls
       uses: coverallsapp/github-action@master
       with:

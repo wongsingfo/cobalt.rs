@@ -1,6 +1,6 @@
 use crate::document::Document;
 
-use super::{interpret_permalink, PaginationConfig, Result};
+use super::{PaginationConfig, Result, interpret_permalink};
 
 #[derive(Default, Clone, Debug)]
 pub(crate) struct Paginator {
@@ -45,7 +45,7 @@ impl Paginator {
         total_pages: usize,
         index_title: Option<&liquid::model::Value>,
     ) -> Result<()> {
-        self.first_index_permalink = doc.url_path.to_string();
+        self.first_index_permalink = doc.url_path.clone();
         self.last_index_permalink = interpret_permalink(config, doc, total_pages, index_title)?;
         Ok(())
     }
